@@ -1,0 +1,135 @@
+{
+	"info": {
+		"_postman_id": "e95ed709-f5a9-487b-9be8-176fa0226cc2",
+		"name": "Employee Manager",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25800078"
+	},
+	"item": [
+		{
+			"name": "Registro de Funcionario",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Jonies\",\n    \"cpf\": \"12371321266\",\n    \"dateOfBirth\": \"1998-05-12T00:00:00\",\n    \"phone\": \"575-541-45556\",\n    \"address\": \"Rio de Janeiro\",\n    \"remuneration\": 12000.00\n}\n\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/employee/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"employee",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Busca um funcionário por cpf",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/employee/981.888.717-66",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"employee",
+						"981.888.717-66"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lista todos os funcionários",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/employee",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"employee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Alteração de salario conforme regra passando somento cpf",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/employee/999.888.777-66/salary",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"employee",
+						"999.888.777-66",
+						"salary"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Informações sobre isenção ou impostos sobre salario",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/tax/981.888.717-66",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"tax",
+						"981.888.717-66"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -93,11 +93,11 @@ Imposto: R$ 80.00
 | menssage | "Imposto no valor de R$ 80.00" |
 | value    | 80.00                          |
 
-**Collection de exemplo para ser testado via Postman:**
-[Employee Manager.postman_collection.json](..%2F..%2FEmployee%20Manager.postman_collection.json)
+**Collection de exemplo para ser testado via Postman:** 
+/emploee-manager-service/Employee_Manager_postman_collection.json
 
 **Obs:** para executar o projeto será necessário a configuração de um banco de dados postgres em sua máquina,
-pós instalado e configurado o db conforme o caminho sugerido no arquivo application.properties, a ferramenta de migração
+após instalado e configurado o db conforme o caminho sugerido no arquivo application.properties, a ferramenta de migração
 flyway
 irá gerar a tabela _employee_ automaticamente conforme o arquivo de migraçao que se encontra **_em:
 src/main/resources/db/migration/V1__employee.sql_**
