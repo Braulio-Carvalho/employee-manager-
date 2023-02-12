@@ -46,7 +46,6 @@ public class EmployeeController {
         return employeeServiceImpl.listEmployees();
     }
 
-
     @GetMapping("/{cpf}")
     public ResponseEntity<EmployeeResponseDto> getEmployee(@PathVariable String cpf) throws InvalidCpfException {
         return ResponseEntity.ok(employeeServiceImpl.findByCpf(cpf));

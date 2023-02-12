@@ -32,11 +32,6 @@ public class EmployeeServiceImplTest {
     @InjectMocks
     private EmployeeServiceImpl employeeService;
 
-    private Employee employee;
-    private EmployeInfoRemunerationDTO employeInfoRemunerationDTO;
-    private EmployeeRequestDTO employeeRequestDTO;
-
-
     @Test
     public void testRegister() throws InvalidCpfException, EmployeeAlreadyExistsException {
         // Dados de entrada

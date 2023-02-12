@@ -49,6 +49,4 @@ public class RemunerationServiceImpl implements RemunerationService {
             throw new InvalidCpfException(ERROR_UPDATING_EMPLOYEE_SALARY);
         }
     }
-
-
 }
