@@ -25,21 +25,23 @@ public class TaxServiceImpl implements TaxService {
     @Autowired
     EmployeeRepository employeeRepository;
 
-
     public TaxResponseDto calculateTax(String cpf) throws TaxCalculateException {
         try {
             Employee employee = employeeRepository.findByCpf(cpf);
             BigDecimal remuneration = employee.getRemuneration();
-
             BigDecimal incomeTax = calculateIncomeTax(remuneration);
-
-            String message = incomeTax.compareTo(BigDecimal.ZERO) == 0 ? ISENTO : IMPOSTO;
-
+            String message = null;
+            if (incomeTax.compareTo(BigDecimal.ZERO) == 0) {
+                message = "Isento";
+            } else {
+                message = "Imposto no valor de R$ " + incomeTax.setScale(2, RoundingMode.HALF_UP).toString();
+            }
             return new TaxResponseDto(cpf, message, incomeTax);
         } catch (Exception e) {
             throw new TaxCalculateException(GlobalConstants.THERE_WAS_A_PROBLEM_CALCULATING_THE_TAX);
         }
     }
+
     public BigDecimal calculateIncomeTax(BigDecimal salary) {
         BigDecimal taxableAmount = salary.subtract(LIMITE_ISENCAO);
         if (taxableAmount.compareTo(BigDecimal.ZERO) < 0) {

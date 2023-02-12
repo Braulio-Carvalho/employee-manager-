@@ -63,8 +63,8 @@ public class TaxServiceImplTest {
 
         TaxResponseDto result = taxService.calculateTax("12345678900");
 
-        assertEquals("12345678900", result.getCpf());
-        assertEquals("Imposto", result.getMessage());
+                assertEquals("12345678900", result.getCpf());
+        assertEquals("Imposto no valor de R$ 80.00", result.getMessage());
         assertEquals(new BigDecimal("80.00"), result.getValue());
     }
 
