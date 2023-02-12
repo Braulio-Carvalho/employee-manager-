@@ -71,16 +71,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
     }
 
-    private BigDecimal calculateNewRemuneration(BigDecimal currentRemuneration) {
-        RemunerationRange range = RemunerationRange.getPorSalario(currentRemuneration);
-        double percent = range != null ? range.getPercentual() : 0.0;
-
-        BigDecimal reajusteGanho = currentRemuneration.multiply(BigDecimal.valueOf(percent));
-        BigDecimal newRemuneration = currentRemuneration.add(reajusteGanho);
-
-        return newRemuneration.setScale(2, RoundingMode.HALF_UP);
-    }
-
     private String validateCpf(String cpfString) throws InvalidCpfException {
         if (!cpfString.matches(CPF_VALIDATION_REGEX)) {
             throw new InvalidCpfException(INVALID_CPF);
