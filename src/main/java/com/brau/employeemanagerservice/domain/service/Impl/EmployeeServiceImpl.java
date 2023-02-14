@@ -3,7 +3,6 @@ package com.brau.employeemanagerservice.domain.service.Impl;
 import com.brau.employeemanagerservice.application.web.dto.EmployeeRequestDTO;
 import com.brau.employeemanagerservice.application.web.dto.EmployeeResponseDto;
 import com.brau.employeemanagerservice.domain.entities.Employee;
-import com.brau.employeemanagerservice.domain.enums.RemunerationRange;
 import com.brau.employeemanagerservice.domain.exceptions.EmployeeAlreadyExistsException;
 import com.brau.employeemanagerservice.domain.exceptions.EmployeeNotFoundException;
 import com.brau.employeemanagerservice.domain.exceptions.InvalidCpfException;
@@ -13,8 +12,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
