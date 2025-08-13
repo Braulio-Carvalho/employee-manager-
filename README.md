@@ -12,6 +12,7 @@ funcionários, utilizando Spring Boot.
 - Padrão de Projetos DTO (Data transfer object)
 - JUnit e Mockito (Testes Unitários)
 - API RESTful
+- Swagger 
 
 A API deverá prover uma URL base e utilizar os verbos HTTP que indicará qual ação está sendo requisitada pelo consumidor
 do serviço. A URL base do serviço será /api/nomeservico.
@@ -101,3 +102,5 @@ após instalado e configurado o db conforme o caminho sugerido no arquivo applic
 flyway
 irá gerar a tabela _employee_ automaticamente conforme o arquivo de migraçao que se encontra **_em:
 src/main/resources/db/migration/V1__employee.sql_**
+
+http://localhost:8080/swagger-ui/index.html#/

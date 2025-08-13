@@ -18,13 +18,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/tax")
-@Tag(name = "Imposto", description = "API para cálculo do imposto de renda sobre a remuneração dos funcionários")
+@Tag(name = "Imposto de Renda", description = "API para cálculo do imposto de renda com base na remuneração dos funcionários")
 public class TaxController {
 
     @Autowired
     TaxService taxService;
 
-    @Operation(summary = "Calcula o imposto para um funcionário pelo CPF")
+    @Operation(
+            summary =     "Calcula o imposto de renda de um funcionário",
+            description = "Recebe o CPF do funcionário e retorna o valor do imposto de renda, " +
+                          "com mensagem indicando se está isento ou o valor calculado do imposto."
+    )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Imposto calculado com sucesso",
                     content = @Content(mediaType = "application/json",
