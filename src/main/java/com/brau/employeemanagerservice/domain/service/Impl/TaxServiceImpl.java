@@ -12,13 +12,11 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import static com.brau.employeemanagerservice.domain.constants.GlobalConstants.IMPOSTO;
-import static com.brau.employeemanagerservice.domain.constants.GlobalConstants.ISENTO;
-
 @Service
 public class TaxServiceImpl implements TaxService {
 
     private static final BigDecimal LIMITE_ISENCAO = new BigDecimal("2000.00");
+    private static final BigDecimal LIMITE_ALIQUOTA = new BigDecimal("4000.00");
     private static final BigDecimal ALIQUOTA_1 = new BigDecimal("0.08");
     private static final BigDecimal ALIQUOTA_2 = new BigDecimal("0.18");
 
@@ -30,11 +28,12 @@ public class TaxServiceImpl implements TaxService {
             Employee employee = employeeRepository.findByCpf(cpf);
             BigDecimal remuneration = employee.getRemuneration();
             BigDecimal incomeTax = calculateIncomeTax(remuneration);
-            String message = null;
+            String message;
+
             if (incomeTax.compareTo(BigDecimal.ZERO) == 0) {
                 message = "Isento";
             } else {
-                message = "Imposto no valor de R$ " + incomeTax.setScale(2, RoundingMode.HALF_UP).toString();
+                message = "Imposto no valor de R$ " + incomeTax.setScale(2, RoundingMode.HALF_UP);
             }
             return new TaxResponseDto(cpf, message, incomeTax);
         } catch (Exception e) {
@@ -43,17 +42,23 @@ public class TaxServiceImpl implements TaxService {
     }
 
     public BigDecimal calculateIncomeTax(BigDecimal salary) {
-        BigDecimal taxableAmount = salary.subtract(LIMITE_ISENCAO);
-        if (taxableAmount.compareTo(BigDecimal.ZERO) < 0) {
-            taxableAmount = BigDecimal.ZERO;
+        if (salary.compareTo(LIMITE_ISENCAO) <= 0) {
+            return BigDecimal.ZERO;
         }
-        BigDecimal taxAmount1 = taxableAmount.compareTo(BigDecimal.ZERO) > 0
-                ? taxableAmount.multiply(ALIQUOTA_1).setScale(2, RoundingMode.HALF_UP)
-                : BigDecimal.ZERO;
-        BigDecimal taxAmount2 = taxableAmount.subtract(LIMITE_ISENCAO).compareTo(BigDecimal.ZERO) > 0
-                ? taxableAmount.subtract(LIMITE_ISENCAO).multiply(ALIQUOTA_2).setScale(2, RoundingMode.HALF_UP)
-                : BigDecimal.ZERO;
-        return taxAmount1.add(taxAmount2);
+
+        BigDecimal tax = BigDecimal.ZERO;
+        BigDecimal faixa2 = salary.subtract(LIMITE_ALIQUOTA);
+
+        if (salary.compareTo(LIMITE_ISENCAO) > 0) {
+            BigDecimal baseFaixa1 = salary.min(LIMITE_ALIQUOTA).subtract(LIMITE_ISENCAO);
+            tax = tax.add(baseFaixa1.multiply(ALIQUOTA_1));
+        }
+
+        if (faixa2.compareTo(BigDecimal.ZERO) > 0) {
+            tax = tax.add(faixa2.multiply(ALIQUOTA_2));
+        }
+
+        return tax.setScale(2, RoundingMode.HALF_UP);
     }
 
 }

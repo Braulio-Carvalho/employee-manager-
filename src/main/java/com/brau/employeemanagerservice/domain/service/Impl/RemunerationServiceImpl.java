@@ -6,7 +6,8 @@ import com.brau.employeemanagerservice.domain.enums.RemunerationRange;
 import com.brau.employeemanagerservice.domain.exceptions.InvalidCpfException;
 import com.brau.employeemanagerservice.domain.service.RemunerationService;
 import com.brau.employeemanagerservice.resources.repository.EmployeeRepository;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,7 @@ import static com.brau.employeemanagerservice.domain.constants.GlobalConstants.I
 
 @Service
 public class RemunerationServiceImpl implements RemunerationService {
-    private static final Logger LOG = Logger.getLogger(RemunerationServiceImpl.class);
+
     @Autowired
     private EmployeeRepository employeeRepository;
 
@@ -33,6 +34,7 @@ public class RemunerationServiceImpl implements RemunerationService {
             Employee employee = employeeRepository.findByCpf(cpf);
             BigDecimal oldRemuneration = employee.getRemuneration();
             RemunerationRange remunerationRange = RemunerationRange.getPorSalario(oldRemuneration);
+            assert remunerationRange != null;
             BigDecimal percentual = BigDecimal.valueOf(remunerationRange.getPercentual());
             BigDecimal newRemuneration = oldRemuneration.add(oldRemuneration.multiply(percentual).setScale(2, RoundingMode.HALF_EVEN));
             employee.setRemuneration(newRemuneration);

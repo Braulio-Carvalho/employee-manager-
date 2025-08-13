@@ -8,7 +8,8 @@ import com.brau.employeemanagerservice.domain.exceptions.EmployeeNotFoundExcepti
 import com.brau.employeemanagerservice.domain.exceptions.InvalidCpfException;
 import com.brau.employeemanagerservice.domain.service.EmployeeService;
 import com.brau.employeemanagerservice.resources.repository.EmployeeRepository;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,10 +21,11 @@ import static com.brau.employeemanagerservice.domain.constants.GlobalConstants.*
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-    private static final Logger LOG = Logger.getLogger(EmployeeServiceImpl.class);
+
     @Autowired
     EmployeeRepository employeeRepository;
 
+    @Override
     public void register(EmployeeRequestDTO employee) throws EmployeeAlreadyExistsException, InvalidCpfException {
         if (employee == null) {
             throw new InvalidCpfException(EMPLOYEE_CANNOT_BE_NULL);
@@ -33,12 +35,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeRepository.save(employee.toEntity());
     }
 
-
+    @Override
     public List<EmployeeResponseDto> listEmployees() {
         List<Employee> employees = employeeRepository.findAll();
         return employees.stream().map(EmployeeResponseDto::new).collect(Collectors.toList());
     }
 
+    @Override
     public EmployeeResponseDto findByCpf(String cpf) throws InvalidCpfException {
         if (cpf == null || cpf.trim().isEmpty()) {
             throw new InvalidCpfException(CPF_CANNOT_BE_NULL_OR_EMPTY);
@@ -50,7 +53,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         return new EmployeeResponseDto(employee);
     }
-
 
     private void checkExistingEmployee(String cpf, String phone) throws EmployeeAlreadyExistsException {
         List<String> errors = new ArrayList<>();
@@ -74,4 +76,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         return cpfString;
     }
+
+
 }

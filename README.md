@@ -5,7 +5,7 @@ funcionários, utilizando Spring Boot.
 
 ### Tecnologias utilizadas
 
-- Java 8
+- Java 17
 - Maven (Build)
 - Hibernate (Implementação JPA)
 - Postgres (Data Base)
