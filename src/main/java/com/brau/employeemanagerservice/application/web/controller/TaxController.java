@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/tax")
-@Tag(name = "Tax", description = "API para cálculo de imposto de funcionários")
+@Tag(name = "Imposto", description = "API para cálculo do imposto de renda sobre a remuneração dos funcionários")
 public class TaxController {
 
     @Autowired
