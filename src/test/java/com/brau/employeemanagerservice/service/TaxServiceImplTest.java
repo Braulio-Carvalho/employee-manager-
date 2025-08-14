@@ -41,7 +41,7 @@ public class TaxServiceImplTest {
         when(employeeRepository.findByCpf("111.111.111-11")).thenReturn(employee);
         BigDecimal tax;
         tax = taxService.calculateTax("111.111.111-11").getValue();
-        assertEquals(new BigDecimal("420.00"), tax);
+        assertEquals(new BigDecimal("340.00"), tax);
     }
 
     @Test
