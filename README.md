@@ -1,106 +1,106 @@
-## Projeto de Cálculo de Salários e Impostos para Funcionários
+# 💼 Projeto de Cálculo de Salários e Impostos para Funcionários
 
-Este documento tem a finalidade de propor a criação de um projeto fictício de cálculos de salários e impostos para
-funcionários, utilizando Spring Boot.
+Este projeto fictício foi desenvolvido com o objetivo de realizar cálculos de **reajuste salarial** e **imposto de renda** para funcionários, utilizando uma API RESTful construída com **Spring Boot**.  
+Totalmente dockerizado e com documentação interativa via Swagger, é fácil de executar e testar — sem precisar instalar nada além do Docker. 😉
 
-### Tecnologias utilizadas
+---
 
-- Java 17
-- Maven (Build)
-- Hibernate (Implementação JPA)
-- Postgres (Data Base)
-- Padrão de Projetos DTO (Data transfer object)
-- JUnit e Mockito (Testes Unitários)
-- API RESTful
-- Swagger 
+## 🛠️ Tecnologias Utilizadas
 
-A API deverá prover uma URL base e utilizar os verbos HTTP que indicará qual ação está sendo requisitada pelo consumidor
-do serviço. A URL base do serviço será /api/nomeservico.
+- ☕ Java 17
+- 🧰 Spring Boot
+- 📦 Maven
+- 🗄️ Hibernate / JPA
+- 🐘 PostgreSQL (via Docker)
+- 🐳 Docker & Docker Compose
+- 📄 Swagger (documentação da API)
+- 🧪 JUnit & Mockito (testes unitários)
+- 📤 DTO (Data Transfer Object)
+- 🛫 Flyway (migração de banco de dados)
 
-### Funcionalidades
+---
 
-1. Cadastro e cálculo de salário de funcionários
+## 🚀 Como Executar o Projeto
 
-A API deve permitir o cadastro de funcionários e calcular os novos salários dos mesmos, de acordo com a tabela abaixo:
+1. Certifique-se de ter o **Docker** e **Docker Compose** instalados.
+2. Clone o repositório:
 
-| Salário           | Percentual |
-|-------------------|------------|
-| 0 - 400.00        | 15%        |
-| 400.01 - 800.00   | 12%        |
-| 800.01 - 1200.00  | 10%        |
-| 1200.01 - 2000.00 | 7%         |
-| Acima de 2000.00  | 4%         |
+```bash
+git clone https://github.com/seu-usuario/seu-repositorio.git
+cd seu-repositorio
+```
 
-Entrada e Saída de dados:
+3. Execute o projeto com:
 
-**Entrada:**
+```bash
+docker-compose up --build
+```
 
-- CPF do funcionário
+4. Acesse a documentação da API via Swagger:
 
-**Saída:**
+🔗 [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
 
-- CPF do funcionário
-- Novo salário
-- Valor ganho de reajuste
-- Percentual de reajuste ganho
+> O banco de dados será criado automaticamente via Flyway. Nenhuma configuração manual é necessária.
 
-Exemplo de entrada:
+---
 
-CPF: 000.000.000-00
+## 📚 Funcionalidades da API
 
-**Exemplo de saída:**
+### 📌 Cadastro e Cálculo de Reajuste Salarial
 
-| CPF:            | 000.000.000-00 |
-|-----------------|----------------|
-| Novo salário:   | 460.00         |
-| Reajuste ganho: | 60.00          |
-| Em percentual:  | 15%            |
+A API permite cadastrar funcionários e calcular o novo salário com base na seguinte tabela:
 
-2. Cálculo de imposto de renda
+| Faixa Salarial (R$)     | Percentual de Reajuste |
+|-------------------------|------------------------|
+| 0 - 400.00              | 15%                    |
+| 400.01 - 800.00         | 12%                    |
+| 800.01 - 1200.00        | 10%                    |
+| 1200.01 - 2000.00       | 7%                     |
+| Acima de 2000.00        | 4%                     |
 
-A API deve permitir o cálculo do valor de imposto de renda a ser pago por cada funcionário, de acordo com a tabela
-abaixo:
+📥 **Entrada:** CPF do funcionário  
+📤 **Saída:** CPF, novo salário, valor do reajuste e percentual aplicado
 
-| Renda                        | Imposto de Renda |
-|------------------------------|------------------|
-| De 0.00 a R$ 2000.00         | Isento           |
-| De R$ 2000.01 até R$ 3000.00 | 8%               |
-| De R$ 3000.01 até R$ 4500.00 | 18%              |
-| Acima de R$ 4500.00          | 28%              |
+---
 
-Entrada e Saída de dados:
+### 📌 Cálculo de Imposto de Renda
 
-**Entrada:**
+A API calcula o valor do imposto de renda com base na seguinte tabela:
 
-- CPF do funcionário
+| Faixa de Renda (R$)     | Alíquota IR (%) |
+|-------------------------|-----------------|
+| Até 2000.00             | Isento          |
+| 2000.01 - 3000.00       | 8%              |
+| 3000.01 - 4500.00       | 18%             |
+| Acima de 4500.00        | 28%             |
 
-**Saída:**
+📥 **Entrada:** CPF do funcionário  
+📤 **Saída:** CPF, valor do imposto e mensagem formatada (ex: `"Imposto no valor de R$ 80.00"`)
 
-- Um objeto com os seguintes campos : cpf, mensagem com detalhes, e o valor do imposto
-- A mensagem irá conter o seguinte texto "Imposto R$ 580.92", com duas casas após o ponto.
-- Se o valor de entrada for menor ou igual a 2000, deverá ser impressa a mensagem "Isento".
+---
 
-Exemplo de entrada:
+## 🧪 Testes
 
-CPF: 000.000.000-00
+Os testes unitários foram implementados com **JUnit** e **Mockito**.  
+Para executá-los, basta rodar:
 
-Exemplo de saída:
+```bash
+./mvnw test
+```
 
-CPF: 000.000.000-00
-Imposto: R$ 80.00
+---
 
-| CPF:     | 000.000.000-00                 |
-|----------|--------------------------------|
-| menssage | "Imposto no valor de R$ 80.00" |
-| value    | 80.00                          |
+## 🧾 Observações
 
-**Collection de exemplo para ser testado via Postman:** 
-/emploee-manager-service/Employee_Manager_postman_collection.json
+- A tabela `employee` é criada automaticamente na primeira execução via Flyway.
+- Todas as dependências estão encapsuladas nos containers Docker.
+- A API pode ser testada diretamente pelo Swagger, sem necessidade de Postman.
+- O projeto está pronto para produção e fácil de escalar.
 
-**Obs:** para executar o projeto será necessário a configuração de um banco de dados postgres em sua máquina,
-após instalado e configurado o db conforme o caminho sugerido no arquivo application.properties, a ferramenta de migração
-flyway
-irá gerar a tabela _employee_ automaticamente conforme o arquivo de migraçao que se encontra **_em:
-src/main/resources/db/migration/V1__employee.sql_**
+---
 
-http://localhost:8080/swagger-ui/index.html#/
+## 👨‍💻 Autor
+
+Feito com 💙 por ** Bráulio Carvalho **  
+📧 braulio.carvalho@outlook.com  
+🔗 [LinkedIn](https://www.linkedin.com/in/braulio-carvalho/) • [GitHub](https://github.com/Braulio-Carvalho)
