@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: employee-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: employee-app
+  template:
+    metadata:
+      labels:
+        app: employee-app
+    spec:
+      containers:
+        - name: employee-app
+          image: employee_app:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://postgres-service:5432/employee_db
+            - name: SPRING_DATASOURCE_USERNAME
+              value: user
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: password
+            - name: SPRING_FLYWAY_ENABLED
+              value: "true"
+            - name: SPRING_FLYWAY_BASELINE_ON_MIGRATE
+              value: "true"
+            - name: SPRING_FLYWAY_LOCATIONS
+              value: classpath:db/migration
+          command: [ "bash", "./wait-for-it.sh", "postgres-service:5432", "--", "java", "-jar", "app.jar" ]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: employee-app-service
+spec:
+  type: NodePort
+  selector:
+    app: employee-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+      nodePort: 30080

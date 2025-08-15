@@ -6,17 +6,27 @@ Totalmente dockerizado e com documentação interativa via Swagger, é fácil de
 ---
 
 ## 🛠️ Tecnologias Utilizadas
+☕ Java 17 — linguagem principal da aplicação
 
-- ☕ Java 17
-- 🧰 Spring Boot
-- 📦 Maven
-- 🗄️ Hibernate / JPA
-- 🐘 PostgreSQL (via Docker)
-- 🐳 Docker & Docker Compose
-- 📄 Swagger (documentação da API)
-- 🧪 JUnit & Mockito (testes unitários)
-- 📤 DTO (Data Transfer Object)
-- 🛫 Flyway (migração de banco de dados)
+🧰 Spring Boot — framework para desenvolvimento ágil de APIs REST
+
+📦 Maven — gerenciamento de dependências e build
+
+🗄️ Hibernate / JPA — mapeamento objeto-relacional
+
+🐘 PostgreSQL — banco de dados relacional, rodando em container
+
+🐳 Docker & Docker Compose — empacotamento e orquestração local
+
+📄 Swagger (springdoc-openapi) — documentação interativa da API
+
+🧪 JUnit & Mockito — testes unitários e mocks
+
+📤 DTO (Data Transfer Object) — encapsulamento de dados entre camadas
+
+🛫 Flyway — controle de versões e migração de banco de dados
+
+☸️ Kubernetes (Minikube) — orquestração de containers e deploy em cluster
 
 ---
 
